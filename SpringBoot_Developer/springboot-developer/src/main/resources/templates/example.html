@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>타임리프 익히기</h1>
+<!-- LocalDate를 yyyy-MM-dd 포맷으로 변경 -->
+<p th:text="${#temporals.format(today, 'yyyy-MM-dd')}"></p>
+<!-- #temporals.format() : LocalDate 타입인 오늘 날짜를 yyyy-MM-dd 형식의 String 타입으로 포매팅 함 -->
+<div th:object="${person}"> <!-- person을 선택한 객체로 지정 -->
+<!-- th:object : 모델에서 받은 객체 중 "person"이라는 키를 가진 객체의 데이터를 하위 태그에 지정 함 /
+ 하위 태그에서는 *(...)를 사용해 부모 태그에 적용한 객체 값에 접근할 수 있음-->
+    <p th:text="|이름 : *{name}|"></p>
+    <p th:text="|나이 : *{age}|"></p>
+    <!-- th:text : 텍스트를 표현함 / '이름 : '이라는 문자열과 person 객체의 name 값인 홍길동을 이어 붙임 -->
+    <p>취미</p>
+    <ul th:each="hobby : *{hobbies}"> <!-- th:each : 객체의 hobbies 개수만큼 반복 -->
+        <li th:text="${hobby}"></li>
+        <!-- 반복 대상이 운동이라면 '대표 취미'라는 표시 추가 -->
+        <span th:if="${hobby == '운동'}">(대표 취미)</span>
+    </ul>
+</div>
+<!-- 1번 블로그 글을 보러 이동-->
+<a th:href="@{/api/articles/{id}(id=${person.id})}">글 보기</a>
+</body>
+</html>

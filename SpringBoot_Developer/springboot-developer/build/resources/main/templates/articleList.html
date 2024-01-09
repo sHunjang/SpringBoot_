@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글 목록</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="p-5 mb-5 text-center</> bg-light">
+    <h1 class="mb-3">My Blog</h1>
+    <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
+</div>
+<!-- 모델에 전달한 글 리스트 개수 만큼 반복해 글 정보를 보여줌 -->
+<div class="container">
+    <button type="button" id="create-btn"
+            th:onclick="|location.href='@{/new-article}'|"
+            class="btn btn-secondary btn-sm mb-3">글 등록</button>
+    <div class="row-6" th:each="item : ${articles}">
+        <!-- th:each : "articles" 키에 담긴 데이터 개수만큼 반복함 -->
+        <div class="card">
+            <div class="card-header" th:text="${item.id}">
+                <!-- th:text : 반복 대상 객체의 id, "text"를 출력함 -->
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${item.title}"></h5>
+                <p class="card-text" th:text="${item.content}"></p>
+                <a th:href="@{/articles/{id}(id=${item.id})}" class="btn btn-primary">보러가기</a>
+                <!-- URL 표현식 @{...} 사용 : [보러가기]를 눌렀을 때 주소창의 값을 /article/{item.id}로 변경해 글 상세 화면으로 이동-->
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+
+<script src="/js/article.js"></script>
+</body>
